@@ -40,6 +40,22 @@ export default function NavBar() {
                                                       Contact Us
                                                 </Link>
                                           </li>
+                                          <li>
+                                                <Link
+                                                      to="/login"
+                                                      className="leading-[60px] capitalize font-medium"
+                                                >
+
+                                                      Login                                                </Link>
+                                          </li>
+                                          <li>
+                                                <Link
+                                                      to="/register"
+                                                      className="leading-[60px] capitalize font-medium"
+                                                >
+                                                      Register
+                                                </Link>
+                                          </li>
                                     </ul>
                               </div>
                         </div>

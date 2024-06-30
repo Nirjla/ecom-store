@@ -4,11 +4,11 @@ const cors = require("cors")
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
-app.use(cors(
-    'http://localhost:5174',
-    allowHeaders = ['Content-Type', 'Authorization'],
-    exposeHeaders = ['Content-Type', 'Authorization']
-));
+app.use(cors({
+    origin: 'http://localhost:5173',
+    allowHeaders :['Content-Type', 'Authorization'],
+    exposeHeaders :['Content-Type', 'Authorization']
+}));
 
 const routes = require("./routes")
 app.use('/api', routes)
