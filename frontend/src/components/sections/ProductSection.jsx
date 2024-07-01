@@ -4,12 +4,17 @@ import ProductCard from "../elements/ProductCard";
 import NotFoundPage from "../pages/NotFoundPage";
 
 export default function ProductSection() {
-      const [page, setPage] = useState(1)
+      const [currentPage, setCurrentPage] = useState(1)
       const itemsPerPage = 9;
       // const [limit, setLimit] = useState(10)
       // const [query, setQuery] = useState('')
-      const { data: items, isLoading, isSuccess, isError, } = useGetItemsQuery()
+      const { data: items, isLoading, isSuccess, isError, } = useGetItemsQuery({ page: currentPage, limit: itemsPerPage })
       // console.log(data)
+      const handlePageChange = (newPage) => {
+            if (newPage >= 1 && newPage <= items.totalPages) {
+                  setCurrentPage(newPage)
+            }
+      }
       return (<>
             {
                   isLoading && <p>Loading...</p>
@@ -19,14 +24,27 @@ export default function ProductSection() {
             }
             {isSuccess && (
                   <>
-                        {
-                              items.items.map(item => (
+                        <div>
+                              {
+                                    items.items.map(item => (
 
-                                    <ProductCard key={item._id} item={item} />
-                              ))
-                        }
-                        <button className="rounded-full bg-gray-400" onClick={() => setPage(page - 1)} disabled={page === 1}>Previous</button>
-                        <button className="rounded-full bg-gray-400" onClick={() => setPage(page + 1)} disabled={page === items.totalPages}>Next</button>
+                                          <ProductCard key={item._id} item={item} />
+                                    ))
+                              }
+                        </div>
+                        <div className="pagination space-x-5">
+                              {Array.from({ length: items.totalPages }).map((_, index) => (
+                                    <>
+                                          <button className={` 
+                                          ${currentPage === index + 1 ? 'bg-gray-400' : 'bg-gray-300'}
+                                          `}
+                                                key={index}
+                                                onClick={() => handlePageChange(index + 1)}
+                                          >{index + 1}</button>
+                                    </>
+
+                              ))}
+                        </div>
                   </>
             )}
       </>)

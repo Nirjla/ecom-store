@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function NavBar() {
+      const { isAuthenticated, handleLogout } = useAuth()
+
       return (<>
             <header className="bg-white border-b">
                   <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,22 +43,29 @@ export default function NavBar() {
                                                       Contact Us
                                                 </Link>
                                           </li>
-                                          <li>
-                                                <Link
-                                                      to="/login"
-                                                      className="leading-[60px] capitalize font-medium"
-                                                >
+                                          {isAuthenticated ?
+                                                <>
+                                                      <button className=""
+                                                            onClick={handleLogout}
+                                                      >Logout</button>
+                                                </> : <><li>
+                                                      <Link
+                                                            to="/login"
+                                                            className="leading-[60px] capitalize font-medium"
+                                                      >
 
-                                                      Login                                                </Link>
-                                          </li>
-                                          <li>
-                                                <Link
-                                                      to="/register"
-                                                      className="leading-[60px] capitalize font-medium"
-                                                >
-                                                      Register
-                                                </Link>
-                                          </li>
+                                                            Login                                                </Link>
+                                                </li>
+                                                      <li>
+                                                            <Link
+                                                                  to="/register"
+                                                                  className="leading-[60px] capitalize font-medium"
+                                                            >
+                                                                  Register
+                                                            </Link>
+                                                      </li></>
+                                          }
+
                                     </ul>
                               </div>
                         </div>
