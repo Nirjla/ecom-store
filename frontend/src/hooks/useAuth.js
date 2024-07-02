@@ -6,21 +6,23 @@ export function useAuth() {
       const navigate = useNavigate()
       useEffect(() => {
             const token = localStorage.getItem('token')
+            console.log(token)
             if (token) {
                   setIsAuthenticated(true)
             } else {
                   setIsAuthenticated(false)
+
             }
       }, [])
-            const handleLogout = () => {
-                  localStorage.removeItem('token')
-                  setIsAuthenticated(false)
-                  navigate('/')
-                  toast.success("Logged Out successfully")
-            }
-            return {
-                  handleLogout, isAuthenticated
-            }
+      const handleLogout = () => {
+            localStorage.removeItem('token')
+            setIsAuthenticated(false)
+            navigate('/')
+            toast.success("Logged Out successfully")
       }
+      return {
+            handleLogout, isAuthenticated
+      }
+}
 
 

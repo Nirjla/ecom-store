@@ -1,16 +1,9 @@
 // Import the RTK Query methods from the React-specific entry point
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
+import { getTokenFromLocalStorage } from '../utils/utils'
 export const apiSlice = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_API_URL }),
-  prepareHeaders: (headers, { getState }) => {
-    const token = getState.auth.token
-    if (token) {
-      headers.set('authorization', `Bearer ${token}`)
-    }
-    return headers
-  },
   endpoints: (builder) => ({
     registerUser: builder.mutation({
       query: (user) =>
@@ -37,8 +30,27 @@ export const apiSlice = createApi({
       query: (id) => ({
         url: `items/${id}`
       })
+    }),
+    getCartItems: builder.query({
+      query: () => ({
+        url: '/cart',
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`
+        },
+      })
+    }),
+    addToCart: builder.mutation({
+      query: (item) => ({
+        url: '/cart',
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`
+        },
+        body: item
+      })
     })
+
   }),
 })
 
-export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation } = apiSlice
+export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGetCartItemsQuery, useAddToCartMutation } = apiSlice

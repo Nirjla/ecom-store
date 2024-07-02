@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function NavBar() {
       const { isAuthenticated, handleLogout } = useAuth()
-
+      const navigate = useNavigate()
+      const handleCart = () => {
+            navigate('/cart')
+      }
       return (<>
             <header className="bg-white border-b">
                   <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,6 +51,9 @@ export default function NavBar() {
                                                       <button className=""
                                                             onClick={handleLogout}
                                                       >Logout</button>
+                                                      <button onClick={handleCart}>
+                                                            Cart
+                                                      </button>
                                                 </> : <><li>
                                                       <Link
                                                             to="/login"
