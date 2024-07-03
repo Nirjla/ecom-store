@@ -24,7 +24,7 @@ export default function ProductSection() {
             }
             {isSuccess && (
                   <>
-                        <div>
+                        <div className="my-5 grid grid-cols-4 gap-4">
                               {
                                     items.items.map(item => (
 
