@@ -59,7 +59,7 @@ exports.deleteFromCart = async (req, res) => {
         console.log(req.params)
         const userId = req.user.id;
         const { itemId } = req.params
-        console.log(req.params)
+        console.log("item:" + itemId)
         const cart = await Cart.findOneAndUpdate(
             { user: userId },
             { $pull: { items: { item: itemId } } },

@@ -1,4 +1,6 @@
+import React from "react"
 import { useGetCartItemsQuery } from "../../api/apiSlice"
+import CartItem from "../elements/CartItem"
 
 export default function Cart() {
       const { data: items, isSuccess, isLoading, isError } = useGetCartItemsQuery()
@@ -13,9 +15,9 @@ export default function Cart() {
             }
             {isSuccess && (<>
                   {items.items.map((item, index) => (
-                        <div key={index}>
-                              <h2>{item.item.name}</h2>
-                        </div>
+                        <React.Fragment key={index}>
+                              <CartItem item={item} />
+                        </React.Fragment>
                   ))}
             </>)}
       </>)

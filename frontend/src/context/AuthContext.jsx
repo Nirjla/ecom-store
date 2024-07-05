@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
         removeTokenFromLocalStorage();
         setIsAuthenticated(false);
         // navigate('/');
+        window.location.href = '/';
         toast.success("Logged Out Successfully");
     };
     useEffect(() => {
@@ -26,6 +27,7 @@ export const AuthProvider = ({ children }) => {
                 } else {
                     // Token valid, set isAuthenticated to true
                     setIsAuthenticated(true);
+                    // window.location.href = '/';
                     const timeout = decodedToken.exp * 1000 - currentTime * 1000;
                     setTimeout(handleLogout, timeout); // Logout automatically after token expires
                 }

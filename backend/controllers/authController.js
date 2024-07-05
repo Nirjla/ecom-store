@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
                   }
                   const token = jwt.sign(
                         { user }, JWT.JWT_SECRET, {
-                        expiresIn: '1min'
+                        expiresIn: '1hr'
                   }
                   )
                   return res.status(200).json({
