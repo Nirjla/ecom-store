@@ -1,20 +1,21 @@
+import { useState } from "react";
 import { toast } from "react-toastify";
-import { useDeleteFromCartMutation } from "../../api/apiSlice";
+import { useDeleteFromCartMutation, useUpdateQuantityMutation, useGetCartItemsQuery } from "../../api/apiSlice";
 import useAuth from "../../hooks/useAuth";
 
 export default function CartItem({ item }) {
       const [deleteFromCart] = useDeleteFromCartMutation();
+      const [updateQuantity] = useUpdateQuantityMutation();
       const { isAuthenticated } = useAuth();
+      const { refetch } = useGetCartItemsQuery();
+      const [quantity, setQuantity] = useState(item.quantity);
 
       const handleRemoveCart = async (itemId) => {
             try {
                   if (isAuthenticated) {
-                        console.log("Item:" + itemId)
-                        const res = await deleteFromCart(itemId).unwrap();
-                        if (res) {
-                              console.log("deleetd" + res)
-                        }
+                        await deleteFromCart(itemId).unwrap();
                         toast.success("Item removed from cart");
+                        refetch();
                   } else {
                         toast.error("Failed to remove item from cart");
                   }
@@ -23,15 +24,29 @@ export default function CartItem({ item }) {
             }
       };
 
+      const handleUpdateQuantity = async (itemId, newQuantity) => {
+            try {
+                  if (isAuthenticated) {
+                        await updateQuantity({ itemId, quantity: newQuantity }).unwrap();
+                  toast.success("Item quantity updated");
+                        setQuantity(newQuantity);
+                        refetch();
+                  } else {
+                        toast.error("Failed to update item quantity");
+                  }
+            } catch (err) {
+                  toast.error("Failed to update item quantity");
+            }
+      };
+
       return (
             <div>
-                  {item.item._id}
-                  <h2>{item.item.name}</h2>
+                  <h2>{item.name}</h2>
                   <div className="flex space-x-4">
                         Qty
-                        <button className="bg-gray-500">+</button>
-                        <p>1</p>
-                        <button className="bg-gray-500">-</button>
+                        <button className="bg-gray-500" onClick={() => handleUpdateQuantity(item._id, quantity + 1)}>+</button>
+                        <p>{quantity}</p>
+                        <button className="bg-gray-500" onClick={() => handleUpdateQuantity(item._id, quantity - 1)}>-</button>
                   </div>
                   <button onClick={() => handleRemoveCart(item._id)}>Remove</button>
             </div>

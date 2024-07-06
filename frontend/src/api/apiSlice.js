@@ -52,13 +52,23 @@ export const apiSlice = createApi({
     deleteFromCart: builder.mutation({
       query: (itemId) => ({
         url: `/cart/${itemId}`,
-         method: 'DELETE',
+        method: 'DELETE',
         headers: {
           Authorization: `Bearer ${getTokenFromLocalStorage()}`
         },
+      })
+    }),
+    updateQuantity: builder.mutation({
+      query: ({ itemId, quantity }) => ({
+        url: `/cart/${itemId}`,
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${getTokenFromLocalStorage()}`
+        },
+        body: { quantity }
       })
     })
   }),
 })
 
-export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGetCartItemsQuery, useAddToCartMutation, useDeleteFromCartMutation } = apiSlice
+export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGetCartItemsQuery, useAddToCartMutation, useDeleteFromCartMutation, useUpdateQuantityMutation } = apiSlice

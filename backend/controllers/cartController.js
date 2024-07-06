@@ -23,7 +23,7 @@ exports.addToCart = async (req, res) => {
             res.json(updatedCart);
         } else {
             // If the cart doesn't exist for the user, create a new cart with the item
-            const newCart = new Cart({
+            const newCart = new Cacrt({
                 user: userId,
                 items: [{ item: itemId, quantity: quantity || 1 }]
             });
@@ -55,14 +55,14 @@ exports.getCartItems = async (req, res) => {
 
 exports.deleteFromCart = async (req, res) => {
     try {
-        console.log("hello")
-        console.log(req.params)
+        // console.log("hello")
+        // console.log(req.params)
         const userId = req.user.id;
         const { itemId } = req.params
-        console.log("item:" + itemId)
+        // console.log("item:" + itemId)
         const cart = await Cart.findOneAndUpdate(
             { user: userId },
-            { $pull: { items: { item: itemId } } },
+            { $pull: { items: { _id: itemId } } },
             { new: true }
         );
         if (!cart) {
@@ -78,16 +78,17 @@ exports.deleteFromCart = async (req, res) => {
 exports.updateQuantity = async (req, res) => {
     try {
         const userId = req.user.id
-        console.log(userId)
+        // console.log(userId)
         const { itemId } = req.params
-        console.log(itemId)
+        console.log("itemid" + itemId)
         const { quantity } = req.body
+        console.log("q" + quantity)
         const cart = await Cart.findOne({ user: userId })
         console.log(cart)
         if (!cart) {
             return res.status(404).json({ message: 'Cart not found for this user' })
         }
-        const existingCartItem = cart.items.find(item => item.item.toString() === itemId)
+        const existingCartItem = cart.items.find(item => item._id.toString() === itemId)
         if (!existingCartItem) {
             return res.status(404).json({
                 message: 'Item not foound in the cart'

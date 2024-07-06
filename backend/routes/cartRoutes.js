@@ -5,5 +5,5 @@ const { addToCart, deleteFromCart, getCartItems, updateQuantity } = require("../
 router.post('/', authMiddleware, addToCart)
 router.get('/', authMiddleware, getCartItems)
 router.delete('/:itemId', authMiddleware, deleteFromCart)
-router.put('/:itemId', authMiddleware, updateQuantity)
+router.patch('/:itemId', authMiddleware, updateQuantity)
 module.exports = router
