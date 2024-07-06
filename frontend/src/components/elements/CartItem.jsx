@@ -41,7 +41,7 @@ export default function CartItem({ item }) {
 
       return (
             <div>
-                  <h2>{item.name}</h2>
+                  <h2>{item.item.name}</h2>
                   <div className="flex space-x-4">
                         Qty
                         <button className="bg-gray-500" onClick={() => handleUpdateQuantity(item._id, quantity + 1)}>+</button>

@@ -59,7 +59,7 @@ exports.deleteFromCart = async (req, res) => {
         // console.log(req.params)
         const userId = req.user.id;
         const { itemId } = req.params
-        // console.log("item:" + itemId)
+        console.log("itemtodel:" + itemId)
         const cart = await Cart.findOneAndUpdate(
             { user: userId },
             { $pull: { items: { _id: itemId } } },
@@ -69,6 +69,7 @@ exports.deleteFromCart = async (req, res) => {
             return res.status(404).json({ message: 'Cart not found for this user' })
         }
         res.json(cart)
+        console.log("cartisis" + cart)
     } catch (err) {
         console.error('Error removing item from cart ', err)
         res.status(500).json({ message: 'Internal Server Error' })
@@ -80,9 +81,9 @@ exports.updateQuantity = async (req, res) => {
         const userId = req.user.id
         // console.log(userId)
         const { itemId } = req.params
-        console.log("itemid" + itemId)
+        // console.log("itemid" + itemId)
         const { quantity } = req.body
-        console.log("q" + quantity)
+        // console.log("q" + quantity)
         const cart = await Cart.findOne({ user: userId })
         console.log(cart)
         if (!cart) {
