@@ -3,7 +3,10 @@ import {jwtDecode} from "jwt-decode";
 export const getTokenFromLocalStorage = () => {
       return localStorage.getItem('token')
 }
-
+export const setTokenInLocalStorage = (token) => {
+      localStorage.setItem('token', token);
+  };
+  
 
 export const removeTokenFromLocalStorage = () => {
       return localStorage.removeItem('token')

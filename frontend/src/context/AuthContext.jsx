@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { decodeToken, getTokenFromLocalStorage, isTokenExpired, removeTokenFromLocalStorage } from "../utils/utils";
+import { decodeToken, getTokenFromLocalStorage, isTokenExpired, removeTokenFromLocalStorage, setTokenInLocalStorage } from "../utils/utils";
 import { toast } from "react-toastify";
 
 export const AuthContext = createContext();
@@ -8,13 +8,21 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     // const navigate = useNavigate();
+
     const handleLogout = () => {
         removeTokenFromLocalStorage();
         setIsAuthenticated(false);
-        // navigate('/');
         window.location.href = '/';
         toast.success("Logged Out Successfully");
     };
+
+    const handleLogin = (token) => {
+        setTokenInLocalStorage(token);
+        setIsAuthenticated(true);
+        window.location.href = '/';
+        toast.success("Logged In Successfully");
+    };
+
     useEffect(() => {
         const checkTokenValidity = () => {
             const token = getTokenFromLocalStorage();
@@ -22,25 +30,21 @@ export const AuthProvider = ({ children }) => {
                 const decodedToken = decodeToken(token);
                 const currentTime = Date.now() / 1000;
                 if (decodedToken && decodedToken.exp && decodedToken.exp < currentTime) {
-                    // Token expired
                     handleLogout();
                 } else {
-                    // Token valid, set isAuthenticated to true
                     setIsAuthenticated(true);
-                    // window.location.href = '/';
                     const timeout = decodedToken.exp * 1000 - currentTime * 1000;
-                    setTimeout(handleLogout, timeout); // Logout automatically after token expires
+                    setTimeout(handleLogout, timeout);
                 }
             } else {
-                // No token found
                 setIsAuthenticated(false);
             }
         }
-        checkTokenValidity()
+        checkTokenValidity();
     }, []);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, handleLogout }}>
+        <AuthContext.Provider value={{ isAuthenticated, handleLogout, handleLogin }}>
             {children}
         </AuthContext.Provider>
     );
