@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { decodeToken, getTokenFromLocalStorage, isTokenExpired, removeTokenFromLocalStorage, setTokenInLocalStorage } from "../utils/utils";
 import { toast } from "react-toastify";
 
@@ -12,7 +11,7 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = () => {
         removeTokenFromLocalStorage();
         setIsAuthenticated(false);
-        window.location.href = '/';
+        // window.location.href = '/';
         toast.success("Logged Out Successfully");
     };
 
