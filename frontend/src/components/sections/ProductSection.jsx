@@ -33,7 +33,8 @@ export default function ProductSection() {
       const handleInputChange = (e) => {
             const value = e.target.value;
             setSearchTerm(value);
-            // Simulate search suggestions (replace with actual API call for suggestions)
+            handlePageChange
+            handlePageChange // Simulate search suggestions (replace with actual API call for suggestions)
             if (value.trim() !== '') {
                   const suggestions = items.items.filter(item =>
                         item.name.toLowerCase().includes(value.toLowerCase())
