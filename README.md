@@ -54,6 +54,7 @@ This is simple MERN Stack application where user can login/register, can add/rem
  **Backend**
 
 - cd backend/ && npm i
+- import data.json to your database
 
 ### Prerequisites
 
