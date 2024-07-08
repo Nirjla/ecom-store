@@ -1,14 +1,17 @@
 const { config } = require("dotenv")
 config()
 
-exports.DB = {
-      DB_URL: process.env.DB_URL
-
-}
-exports.SERVER = {
-      SERVER_PORT: process.env.SERVER_PORT
-}
-
-exports.JWT = {
-      JWT_SECRET: process.env.JWT_SECRET
-}
+module.exports = {
+      DB: {
+            DB_URL: process.env.DB_URL
+      },
+      SERVER: {
+            SERVER_PORT: process.env.PORT || 3000
+      },
+      JWT: process.env.JWT_SECRET,
+      GOOGLE: {
+            CLIENT_ID: process.env.CLIENT_ID,
+            CLIENT_SECRET: process.env.CLIENT_SECRET,
+            CALLBACK_URL: process.env.CALLBACK_URL
+      }
+};
