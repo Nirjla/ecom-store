@@ -20,6 +20,13 @@ export const apiSlice = createApi({
         body: user
       })
     }),
+    googleLogin: builder.mutation({
+      query: ({ token }) => ({
+        url: '/auth/google/callback',
+        method: 'POST',
+        body: { token }
+      })
+    }),
     getItems: builder.query({
       query: ({ page = 1, limit, q = '' } = {}) => ({
         url: 'items',
@@ -71,4 +78,4 @@ export const apiSlice = createApi({
   }),
 })
 
-export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGetCartItemsQuery, useAddToCartMutation, useDeleteFromCartMutation, useUpdateQuantityMutation } = apiSlice
+export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGoogleLoginMutation, useGetCartItemsQuery, useAddToCartMutation, useDeleteFromCartMutation, useUpdateQuantityMutation } = apiSlice

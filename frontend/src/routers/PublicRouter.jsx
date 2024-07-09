@@ -6,6 +6,7 @@ import ProductDetails from "../components/pages/ProductDetails";
 import Register from "../components/pages/Register";
 import Login from "../components/pages/Login";
 import Cart from "../components/pages/Cart";
+import GoogleCallback from "../components/pages/GoogleCallback";
 
 export const publicRouter = createBrowserRouter([
       {
@@ -29,6 +30,9 @@ export const publicRouter = createBrowserRouter([
                   }, {
                         path: "/cart",
                         element: <Cart />
+                  },{
+                        path:"/auth/google/callback",
+                        element:<GoogleCallback/>
                   }
             ]
       }
