@@ -31,9 +31,9 @@ export default function ProductCard({ item }) {
     };
 
     return (<>
-        <div className="bg-gray-300 p-3">
+        <div className="border-solid border-2 border-gray-200 rounded-lg  p-3">
             <Link to={`/items/${item._id}`}>
-                <h2>{item.name}</h2>
+                <h2 className="">{item.name}</h2>
             </Link>
             <p>Price: {item.price}</p>
             <button onClick={handleAddToCart}>Add to Cart</button>

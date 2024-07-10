@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function ForgotPassword() {
-  const [forgotPassword] = useForgotPasswordMutation();
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ export default function ForgotPassword() {
           required
         />
         <br />
-        <button type="submit">Send Reset Email</button>
+        <button type="submit" disabled={isLoading}>Send Reset Email</button>
       </form>
     </>
   );
