@@ -14,5 +14,10 @@ module.exports = {
             CLIENT_SECRET: process.env.CLIENT_SECRET,
             CALLBACK_URL: process.env.CALLBACK_URL
       },
-      FRONTEND_URL : process.env.FRONTEND_URL
+      FRONTEND_URL : process.env.FRONTEND_URL,
+
+      HOST:{
+            MAIL: process.env.HOST_MAIL,
+            PW: process.env.HOST_PASSWORD
+      }
 };

@@ -19,6 +19,9 @@ export default function Register() {
                   setErrorMessage(err.data.message)
             }
       }
+      const handleGoogleLogin = () => {
+            window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`
+      }
       return (<>
             <form method="POST" onSubmit={handleSubmit} >
                   <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} />
@@ -29,6 +32,8 @@ export default function Register() {
                   {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                   <p>Already have an account?</p>
                   <Link to={"/login"}>Sign In</Link>
+                  <br />
+                  <button type="button" onClick={handleGoogleLogin}>Sign with Google</button>
             </form>
       </>)
 }

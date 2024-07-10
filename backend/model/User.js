@@ -7,10 +7,6 @@ const UserSchema = new schema({
             type: Number,
             default: null
       },
-      username: {
-            type: String,
-            default: null
-      },
       first_name: {
             type: String,
             required: true
@@ -24,8 +20,10 @@ const UserSchema = new schema({
       },
       password: {
             type: String,
-            // required: true
+            required: true
       },
+      resetPasswordToken: String,
+      resetPasswordExpires: Date
 }, {
       timestamps: true
 })

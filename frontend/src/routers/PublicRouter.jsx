@@ -7,6 +7,8 @@ import Register from "../components/pages/Register";
 import Login from "../components/pages/Login";
 import Cart from "../components/pages/Cart";
 import GoogleCallback from "../components/pages/GoogleCallback";
+import ResetPasswordForm from "../components/pages/ResetPasswordForm";
+import ForgotPassword from "../components/pages/ForgotPassword";
 
 export const publicRouter = createBrowserRouter([
       {
@@ -30,9 +32,17 @@ export const publicRouter = createBrowserRouter([
                   }, {
                         path: "/cart",
                         element: <Cart />
-                  },{
-                        path:"/auth/google/callback",
-                        element:<GoogleCallback/>
+                  }, {
+                        path: "/auth/google/callback",
+                        element: <GoogleCallback />
+                  },
+                  {
+                        path: '/auth/forgot-password',
+                        element:<ForgotPassword/>
+                  },
+                  {
+                        path: "/auth/reset-password/:token",
+                        element: <ResetPasswordForm />
                   }
             ]
       }

@@ -27,6 +27,21 @@ export const apiSlice = createApi({
         body: { token }
       })
     }),
+    forgotPassword: builder.mutation({
+      query: ({ email }) => ({
+        url: '/auth/forgot-password',
+        method: 'POST',
+        body: { email }
+
+      })
+    }),
+    resetPassword: builder.mutation({
+      query: ({ newPassword, token }) => ({
+        url: `/auth/reset-password/${token}`,
+        method: 'POST',
+        body: { newPassword }
+      })
+    }),
     getItems: builder.query({
       query: ({ page = 1, limit, q = '' } = {}) => ({
         url: 'items',
@@ -78,4 +93,6 @@ export const apiSlice = createApi({
   }),
 })
 
-export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGoogleLoginMutation, useGetCartItemsQuery, useAddToCartMutation, useDeleteFromCartMutation, useUpdateQuantityMutation } = apiSlice
+export const { useGetItemsQuery, useGetItemsByIdQuery, useRegisterUserMutation, useLoginUserMutation, useGoogleLoginMutation,
+  useForgotPasswordMutation, useResetPasswordMutation,
+  useGetCartItemsQuery, useAddToCartMutation, useDeleteFromCartMutation, useUpdateQuantityMutation } = apiSlice
