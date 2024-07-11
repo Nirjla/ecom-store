@@ -23,7 +23,7 @@ exports.addToCart = async (req, res) => {
             res.json(updatedCart);
         } else {
             // If the cart doesn't exist for the user, create a new cart with the item
-            const newCart = new Cacrt({
+            const newCart = new Cart({
                 user: userId,
                 items: [{ item: itemId, quantity: quantity || 1 }]
             });
@@ -40,6 +40,7 @@ exports.addToCart = async (req, res) => {
 exports.getCartItems = async (req, res) => {
     try {
         const userId = req.user.id;
+        console.log(userId)
         const cart = await Cart.findOne({ user: userId }).populate('items.item')
         if (!cart) {
             return res.status(404).json({ message: 'Cart not found for this user' });

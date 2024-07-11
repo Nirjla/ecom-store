@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRegisterUserMutation } from "../../api/apiSlice";
+import PrimaryButton from "../reusables/buttons/PrimaryButton";
+import SecondaryButton from "../reusables/buttons/SecondaryButton";
 
 export default function Register() {
       const [registerUser] = useRegisterUserMutation()
@@ -19,21 +21,102 @@ export default function Register() {
                   setErrorMessage(err.data.message)
             }
       }
-      const handleGoogleLogin = () => {
-            window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`
-      }
       return (<>
-            <form method="POST" onSubmit={handleSubmit} >
-                  <input type="text" name="first_name" placeholder="First Name" onChange={handleChange} />
-                  <input type="text" name="last_name" placeholder="Last Name" onChange={handleChange} />
-                  <input type="email" name="email" placeholder="Email" onChange={handleChange} />
-                  <input type="password" name="password" placeholder="Password" autoComplete="current-password" onChange={handleChange} />
-                  <button type="submit">Sign Up</button>
-                  {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-                  <p>Already have an account?</p>
-                  <Link to={"/login"}>Sign In</Link>
-                  <br />
-                  <button type="button" onClick={handleGoogleLogin}>Sign with Google</button>
-            </form>
+            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+                  <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+                              Sign up to your account
+                        </h2>
+                  </div>
+
+                  <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+                        <form method="POST" className="space-y-6" onSubmit={handleSubmit}>
+                              <div>
+                                    <label htmlFor="first_name" className="block text-sm font-medium leading-6 text-gray-900">
+                                          First Name
+                                    </label>
+                                    <div className="mt-2">
+                                          <input
+                                                id="first_name"
+                                                name="first_name"
+                                                type="text"
+                                                required
+                                                autoComplete="true"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                onChange={handleChange}
+
+                                          />
+                                    </div>
+                              </div>
+                              <div>
+                                    <label htmlFor="last_name" className="block text-sm font-medium leading-6 text-gray-900">
+                                          Last Name
+                                    </label>
+                                    <div className="mt-2">
+                                          <input
+                                                id="last_name"
+                                                name="last_name"
+                                                type="text"
+                                                required
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                onChange={handleChange}
+                                          />
+                                    </div>
+                              </div>
+
+
+                              <div>
+                                    <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                                          Email address
+                                    </label>
+                                    <div className="mt-2">
+                                          <input
+                                                id="email"
+                                                name="email"
+                                                type="email"
+                                                required
+                                                autoComplete="email"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                onChange={handleChange}
+
+                                          />
+                                    </div>
+                              </div>
+
+                              <div>
+                                    <div className="flex items-center justify-between">
+                                          <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+                                                Password
+                                          </label>
+                                    </div>
+                                    <div className="mt-2">
+                                          <input
+                                                id="password"
+                                                name="password"
+                                                type="password"
+                                                required
+                                                autoComplete="current-password"
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                onChange={handleChange}
+
+                                          />
+                                    </div>
+                              </div>
+
+                              <div>
+                                    <PrimaryButton name="Sign Up" />
+                              </div>
+                        </form>
+
+                        <p className="mt-10 text-center text-sm text-gray-500">
+                              Already have an account?
+                              <Link to="/login" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                    Sign in
+                              </Link>
+                        </p>
+                    
+                  </div>
+            </div>
+
       </>)
 }

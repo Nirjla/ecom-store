@@ -32,7 +32,7 @@ passport.use(new GoogleStrategy({
                   }
 
                   // Generate JWT token
-                  const token = jwt.sign({ id: user._id, email: user.email }, JWT, { expiresIn: '1h' });
+                  const token = jwt.sign({ user: { id: user._id, email: user.email } }, JWT, { expiresIn: '1h' });
 
                   return done(null, { token });
             } catch (err) {
@@ -41,10 +41,10 @@ passport.use(new GoogleStrategy({
       }
 ));
 
-passport.serializeUser((user, done) => {
-      done(null, user);
-});
+// passport.serializeUser((user, done) => {
+//       done(null, user);
+// });
 
-passport.deserializeUser((user, done) => {
-      done(null, user);
-});
+// passport.deserializeUser((user, done) => {
+//       done(null, user);
+// });

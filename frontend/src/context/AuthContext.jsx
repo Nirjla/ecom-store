@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = (token) => {
         setTokenInLocalStorage(token);
         setIsAuthenticated(true);
-        window.location.href = '/';
         toast.success("Logged In Successfully");
+        // window.location.href = '/';
     };
 
     useEffect(() => {

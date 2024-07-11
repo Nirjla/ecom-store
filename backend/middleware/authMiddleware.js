@@ -19,9 +19,9 @@ module.exports = async (req, res, next) => {
             console.log("Token from request:", jwtToken);
 
             // Verify token and extract payload
-            const payload = jwt.verify(jwtToken, JWT.JWT_SECRET);
+            const payload = jwt.verify(jwtToken, JWT);
             req.user = payload.user; // Attach user information to the request object
-            console.log(req.user)
+            console.log("RequestedUserID"+req.user.id)
 
             // Proceed to the next middleware or route handler
             next();
